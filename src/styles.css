@@ -1,1 +1,30 @@
 /* You can add global styles to this file, and also import other style files */
+
+html{
+  scroll-behavior: smooth;
+}
+
+.fs-50{
+  font-size: 50pt;
+}
+
+.fs-18{
+  font-size: 18pt;
+}
+
+.bg-fundo{
+  background-color: rgb(119, 1, 1);
+}
+
+.bg-fundo2{
+  background-color: rgb(250, 154, 154);
+}
+
+.text-red{
+  color: rgb(119, 1, 1);
+}
+
+
+.font-hover:hover{
+  color:rgb(119, 1, 1) !important
+}
