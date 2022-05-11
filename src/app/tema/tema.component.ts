@@ -24,8 +24,13 @@ export class TemaComponent implements OnInit {
   ngOnInit() {
     // verifica o token
      if(environment.token == ""){
-      alert('Sua seção expirou, faça o login novamente')
+      this.alertas.showAlertDanger('Sua seção expirou, faça o login novamente')
       this.router.navigate(["/entrar"])
+    }
+
+    if(environment.tipo != 'adm'){
+      this.alertas.showAlertDanger('Você precisa ser adm para acessar essa rota')
+      this.router.navigate(["/inicio"])
     }
 
     this.findAllTemas()
