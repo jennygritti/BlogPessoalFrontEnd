@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment.prod';
 import { UsuarioLogin } from '../model/UsuarioLogin';
+import { AlertasService } from '../service/alertas.service';
 import { AuthService } from '../service/auth.service';
 
 @Component({
@@ -15,7 +16,8 @@ export class EntrarComponent implements OnInit {
 
   constructor(
     private auth: AuthService,
-    private router: Router
+    private router: Router,
+    private alertas: AlertasService
   ) { }
 
   ngOnInit() {
@@ -25,19 +27,19 @@ export class EntrarComponent implements OnInit {
   entrar(){
     this.auth.entrar(this.usuarioLogin).subscribe({next:(resp: UsuarioLogin)=> {
       this.usuarioLogin =resp;
-      alert('Usuario Logado com sucesso')
+      this.alertas.showAlertSuccess('Usuario Logado com sucesso')
 
       environment.token = this.usuarioLogin.token
       environment.nome = this.usuarioLogin.nome
       environment.foto = this.usuarioLogin.foto
       environment.id = this.usuarioLogin.id
-
+      environment.tipo = this.usuarioLogin.tipo
 
       this.router.navigate(['/inicio'])
     },
     error: (error) =>{
       if(error.status == 401){
-        alert('Usuario e/ou senha inválidos')
+        this.alertas.showAlertDanger('Usuario e/ou senha inválidos')
       }
     }
     })

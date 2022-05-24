@@ -14,15 +14,29 @@ export class AuthService {
     private http: HttpClient
   ) { }
 
+  token ={
+    headers: new HttpHeaders().set('Authorization', environment.token)
+}
+
+  refreshToken(){
+    this.token = {
+      headers: new HttpHeaders().set('Authorization', environment.token)
+    }
+  }
+
   entrar(usuarioLogin: UsuarioLogin): Observable<UsuarioLogin>{
-    return this.http.post<UsuarioLogin>('http://localhost:8080/usuario/logar', usuarioLogin)
+    return this.http.post<UsuarioLogin>('https://blog-pessoal-generationbr.herokuapp.com/usuario/logar', usuarioLogin)
   }
   cadastrar(usuario: Usuario): Observable<Usuario>{
-    return this.http.post<Usuario>('http://localhost:8080/usuario/cadastrar', usuario)
+    return this.http.post<Usuario>('https://blog-pessoal-generationbr.herokuapp.com/usuario/cadastrar', usuario)
+  }
+
+  atualizar(usuario: Usuario): Observable<Usuario>{
+    return this.http.put<Usuario>('https://blog-pessoal-generationbr.herokuapp.com/usuario/atualizar', usuario)
   }
 
   getByIdUsuario(id: number): Observable<Usuario>{
-    return this.http.get<Usuario>(`http://localhost:8080/usuario/${id}`, this.token)
+    return this.http.get<Usuario>(`https://blog-pessoal-generationbr.herokuapp.com/usuario/${id}`, this.token)
   }
 
   logado(){
@@ -34,13 +48,13 @@ export class AuthService {
     return ok
   }
 
-  token ={
-    headers: new HttpHeaders().set('Authorization', environment.token)
-}
+  adm(){
+    let ok: boolean = false
 
-  refreshToken(){
-    this.token = {
-      headers: new HttpHeaders().set('Authorization', environment.token)
+    if(environment.tipo == 'adm'){
+      ok = true
     }
+    return ok
   }
+
 }
